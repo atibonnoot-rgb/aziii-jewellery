@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star } from 'lucide-react';
 import { Product } from '../types';
 import { DiamondIcon } from './DiamondIcon';
 import { useSiteSettings } from '../context/SiteSettingsContext';
@@ -75,12 +75,6 @@ export const BestSellers: React.FC<BestSellersProps> = ({
     tabsRef.current.scrollLeft = scrollLeftState - walk;
   };
 
-  const scrollTabs = (direction: 'left' | 'right') => {
-    if (!tabsRef.current) return;
-    const amount = direction === 'left' ? -150 : 150;
-    tabsRef.current.scrollBy({ left: amount, behavior: 'smooth' });
-  };
-
   const handleTabClick = (tab: 'BRACELETS' | 'RINGS' | 'EARRINGS' | 'PENDANTS', e: React.MouseEvent<HTMLButtonElement>) => {
     if (isDragging) return;
     setActiveTab(tab);
@@ -120,16 +114,7 @@ export const BestSellers: React.FC<BestSellersProps> = ({
           </p>
 
           {/* Filter Tabs with Touch & Mouse Drag Sliding */}
-          <div className="relative max-w-full mt-6 group/tabs">
-            {/* Left Scroll Arrow */}
-            <button
-              onClick={() => scrollTabs('left')}
-              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-white hover:text-black text-neutral-300 p-1.5 rounded-full border border-neutral-700 backdrop-blur-sm transition-all opacity-0 group-hover/tabs:opacity-100 shadow-lg"
-              aria-label="Scroll left"
-            >
-              <ChevronLeft className="w-4 h-4" />
-            </button>
-
+          <div className="relative max-w-full mt-6">
             {/* Scrollable Container */}
             <div
               ref={tabsRef}
@@ -153,15 +138,6 @@ export const BestSellers: React.FC<BestSellersProps> = ({
                 </button>
               ))}
             </div>
-
-            {/* Right Scroll Arrow */}
-            <button
-              onClick={() => scrollTabs('right')}
-              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-white hover:text-black text-neutral-300 p-1.5 rounded-full border border-neutral-700 backdrop-blur-sm transition-all opacity-0 group-hover/tabs:opacity-100 shadow-lg"
-              aria-label="Scroll right"
-            >
-              <ChevronRight className="w-4 h-4" />
-            </button>
           </div>
         </div>
 
