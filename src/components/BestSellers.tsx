@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star } from 'lucide-react';
+import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star, ChevronLeft, ChevronRight } from 'lucide-react';
 import { Product } from '../types';
 import { DiamondIcon } from './DiamondIcon';
 import { useSiteSettings } from '../context/SiteSettingsContext';
@@ -41,6 +41,52 @@ export const BestSellers: React.FC<BestSellersProps> = ({
   const { get } = useSiteSettings();
   const [activeTab, setActiveTab] = useState<'BRACELETS' | 'RINGS' | 'EARRINGS' | 'PENDANTS'>('BRACELETS');
 
+  // Touch and mouse drag sliding state
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [isMouseDown, setIsMouseDown] = useState(false);
+  const [startX, setStartX] = useState(0);
+  const [scrollLeftState, setScrollLeftState] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!tabsRef.current) return;
+    setIsMouseDown(true);
+    setIsDragging(false);
+    setStartX(e.pageX - tabsRef.current.offsetLeft);
+    setScrollLeftState(tabsRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsMouseDown(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsMouseDown(false);
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isMouseDown || !tabsRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - tabsRef.current.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    if (Math.abs(walk) > 5) {
+      setIsDragging(true);
+    }
+    tabsRef.current.scrollLeft = scrollLeftState - walk;
+  };
+
+  const scrollTabs = (direction: 'left' | 'right') => {
+    if (!tabsRef.current) return;
+    const amount = direction === 'left' ? -150 : 150;
+    tabsRef.current.scrollBy({ left: amount, behavior: 'smooth' });
+  };
+
+  const handleTabClick = (tab: 'BRACELETS' | 'RINGS' | 'EARRINGS' | 'PENDANTS', e: React.MouseEvent<HTMLButtonElement>) => {
+    if (isDragging) return;
+    setActiveTab(tab);
+    e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  };
+
   // Filter by type when products are loaded; show all during loading
   const filtered = loading
     ? []
@@ -73,21 +119,49 @@ export const BestSellers: React.FC<BestSellersProps> = ({
             {get('bestsellers_subtitle') || 'This unique jewelry is handcrafted on the beautiful island of Nantucket using fine silver and semi precious stones.'}
           </p>
 
-          {/* Filter Tabs */}
-          <div className="flex justify-center space-x-3 mt-6">
-            {(['BRACELETS', 'RINGS', 'EARRINGS', 'PENDANTS'] as const).map((tab) => (
-              <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`px-5 py-1.5 text-[11px] font-semibold tracking-[0.15em] uppercase rounded-full transition-all ${
-                  activeTab === tab
-                    ? 'bg-white text-black font-bold shadow-md'
-                    : 'bg-transparent text-neutral-400 hover:text-white border border-neutral-800'
-                }`}
-              >
-                {tab}
-              </button>
-            ))}
+          {/* Filter Tabs with Touch & Mouse Drag Sliding */}
+          <div className="relative max-w-full mt-6 group/tabs">
+            {/* Left Scroll Arrow */}
+            <button
+              onClick={() => scrollTabs('left')}
+              className="hidden sm:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-white hover:text-black text-neutral-300 p-1.5 rounded-full border border-neutral-700 backdrop-blur-sm transition-all opacity-0 group-hover/tabs:opacity-100 shadow-lg"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+
+            {/* Scrollable Container */}
+            <div
+              ref={tabsRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
+              className="flex items-center justify-start sm:justify-center space-x-3 overflow-x-auto no-scrollbar touch-pan-x py-2 px-2 select-none scroll-smooth cursor-grab active:cursor-grabbing w-full"
+            >
+              {(['BRACELETS', 'RINGS', 'EARRINGS', 'PENDANTS'] as const).map((tab) => (
+                <button
+                  key={tab}
+                  onClick={(e) => handleTabClick(tab, e)}
+                  className={`shrink-0 px-5 py-2 text-[11px] font-semibold tracking-[0.15em] uppercase rounded-full transition-all duration-200 ${
+                    activeTab === tab
+                      ? 'bg-white text-black font-bold shadow-md scale-105'
+                      : 'bg-transparent text-neutral-400 hover:text-white border border-neutral-800 hover:border-neutral-600'
+                  }`}
+                >
+                  {tab}
+                </button>
+              ))}
+            </div>
+
+            {/* Right Scroll Arrow */}
+            <button
+              onClick={() => scrollTabs('right')}
+              className="hidden sm:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black/70 hover:bg-white hover:text-black text-neutral-300 p-1.5 rounded-full border border-neutral-700 backdrop-blur-sm transition-all opacity-0 group-hover/tabs:opacity-100 shadow-lg"
+              aria-label="Scroll right"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
           </div>
         </div>
 
