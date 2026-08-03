@@ -1,0 +1,6 @@
+{
+  "name": "AZII JEWELS - Luxury Jewelry & Accessories",
+  "description": "Pixel-perfect luxury jewelry ecommerce store featuring high-end rings, bracelets, earrings, deals of the day, news blog, and luxury collection displays.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
