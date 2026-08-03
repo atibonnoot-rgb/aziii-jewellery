@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Heart, ShoppingBag, Trash2 } from 'lucide-react';
 import { Product } from '../types';
+import { formatPrice } from '../lib/currency';
 
 interface WishlistDrawerProps {
   isOpen: boolean;
@@ -62,7 +63,7 @@ export const WishlistDrawer: React.FC<WishlistDrawerProps> = ({
                     {product.name}
                   </h4>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    ${product.price.toFixed(2)}
+                    {formatPrice(product.price)}
                   </p>
 
                   <div className="flex items-center space-x-3 mt-2">

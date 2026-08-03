@@ -148,7 +148,7 @@ export const Header: React.FC<HeaderProps> = ({
         {/* Right Info & Actions */}
         <div className="flex items-center space-x-6">
           <div className="hidden lg:block text-right">
-            <p className="text-[11px] text-neutral-400">Free delivery order over <span className="text-white font-semibold">$100</span></p>
+            <p className="text-[11px] text-neutral-400">Free delivery order over <span className="text-white font-semibold">₹1,000</span></p>
           </div>
 
           <div className="flex items-center space-x-4">

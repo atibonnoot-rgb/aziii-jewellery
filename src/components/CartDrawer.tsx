@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Trash2, ShoppingBag, ArrowRight } from 'lucide-react';
 import { CartItem } from '../types';
+import { formatPrice } from '../lib/currency';
 
 interface CartDrawerProps {
   isOpen: boolean;
@@ -67,7 +68,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                     {item.product.name}
                   </h4>
                   <p className="text-xs text-neutral-400 mt-0.5">
-                    ${item.product.price.toFixed(2)}
+                    {formatPrice(item.product.price)}
                   </p>
 
                   <div className="flex items-center space-x-2 mt-2">
@@ -98,7 +99,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
                 </div>
 
                 <div className="text-xs font-bold text-white text-right">
-                  ${(item.product.price * item.quantity).toFixed(2)}
+                  {formatPrice(item.product.price * item.quantity)}
                 </div>
               </div>
             ))
@@ -110,7 +111,7 @@ export const CartDrawer: React.FC<CartDrawerProps> = ({
           <div className="flex justify-between items-center text-sm">
             <span className="text-neutral-400 uppercase tracking-widest text-xs">SUBTOTAL</span>
             <span className="font-bold text-lg font-['Montserrat',sans-serif]">
-              ${totalAmount.toFixed(2)}
+              {formatPrice(totalAmount)}
             </span>
           </div>
 

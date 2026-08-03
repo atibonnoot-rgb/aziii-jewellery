@@ -235,29 +235,29 @@ export default function ProductFormModal({
           {/* Price row */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className={labelCls}>Price (USD) *</label>
+              <label className={labelCls}>Price (INR ₹) *</label>
               <input
                 id="pf-price"
                 type="number"
                 min="0"
-                step="0.01"
+                step="1"
                 value={form.price}
                 onChange={set('price')}
                 required
-                placeholder="0.00"
+                placeholder="999"
                 className={inputCls}
               />
             </div>
             <div>
-              <label className={labelCls}>Original Price</label>
+              <label className={labelCls}>Original Price (INR ₹)</label>
               <input
                 id="pf-original-price"
                 type="number"
                 min="0"
-                step="0.01"
+                step="1"
                 value={form.originalPrice}
                 onChange={set('originalPrice')}
-                placeholder="0.00"
+                placeholder="1499"
                 className={inputCls}
               />
             </div>

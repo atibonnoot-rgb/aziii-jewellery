@@ -9,6 +9,7 @@ import CategoryPage from './pages/CategoryPage';
 import BlogPage from './pages/BlogPage';
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminPanel from './pages/admin/AdminPanel';
+import ScrollToTop from './components/ScrollToTop';
 
 // Guards the /admin route — redirects to /admin/login if not authenticated
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
@@ -35,6 +36,7 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       {/* CartProvider wraps all routes so cart persists across navigation */}
       <CartProvider>
         <SiteSettingsProvider>

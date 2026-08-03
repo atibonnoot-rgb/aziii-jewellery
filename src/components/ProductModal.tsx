@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { X, Star, ShoppingBag, Heart, ShieldCheck, Truck, RefreshCw } from 'lucide-react';
 import { Product } from '../types';
+import { formatPrice } from '../lib/currency';
 
 interface ProductModalProps {
   product: Product | null;
@@ -56,10 +57,10 @@ export const ProductModal: React.FC<ProductModalProps> = ({
 
               {/* Price & Rating */}
               <div className="flex items-center space-x-3 mb-3">
-                <span className="text-xl font-bold text-white">${product.price.toFixed(2)}</span>
+                <span className="text-xl font-bold text-white">{formatPrice(product.price)}</span>
                 {product.originalPrice && (
                   <span className="text-neutral-500 line-through text-sm">
-                    ${product.originalPrice.toFixed(2)}
+                    {formatPrice(product.originalPrice)}
                   </span>
                 )}
                 <div className="flex items-center text-amber-400 text-xs ml-auto">

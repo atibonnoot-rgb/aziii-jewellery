@@ -4,6 +4,7 @@ import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star } from 'lucide-react';
 import { Product } from '../types';
 import { DiamondIcon } from './DiamondIcon';
 import { useSiteSettings } from '../context/SiteSettingsContext';
+import { formatPrice } from '../lib/currency';
 
 interface BestSellersProps {
   products: Product[];
@@ -177,10 +178,10 @@ export const BestSellers: React.FC<BestSellersProps> = ({
 
                       <div className="mt-3">
                         <div className="flex items-center space-x-2 text-xs font-semibold">
-                          <span className="text-white">${product.price.toFixed(2)}</span>
+                          <span className="text-white">{formatPrice(product.price)}</span>
                           {product.originalPrice && (
                             <span className="text-neutral-500 line-through text-[11px]">
-                              ${product.originalPrice.toFixed(2)}
+                              {formatPrice(product.originalPrice)}
                             </span>
                           )}
                         </div>

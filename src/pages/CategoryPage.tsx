@@ -9,6 +9,7 @@ import { CartDrawer } from '../components/CartDrawer';
 import { WishlistDrawer } from '../components/WishlistDrawer';
 import { ProductModal } from '../components/ProductModal';
 import type { Product } from '../types';
+import { formatPrice } from '../lib/currency';
 
 export default function CategoryPage() {
   const { filterType, filterValue } = useParams<{ filterType: string; filterValue: string }>();
@@ -156,10 +157,10 @@ export default function CategoryPage() {
                       </div>
                       <div className="mt-3">
                         <div className="flex items-center space-x-2 text-xs font-semibold">
-                          <span className="text-white">${product.price.toFixed(2)}</span>
+                          <span className="text-white">{formatPrice(product.price)}</span>
                           {product.originalPrice && (
                             <span className="text-neutral-500 line-through text-[11px]">
-                              ${product.originalPrice.toFixed(2)}
+                              {formatPrice(product.originalPrice)}
                             </span>
                           )}
                         </div>

@@ -4,6 +4,7 @@ import { ShoppingBag, Heart, Eye, ArrowRightLeft, Star } from 'lucide-react';
 import { Product } from '../types';
 import { DiamondIcon } from './DiamondIcon';
 import { useSiteSettings } from '../context/SiteSettingsContext';
+import { formatPrice } from '../lib/currency';
 
 interface NewArrivalsProps {
   products: Product[];
@@ -125,7 +126,7 @@ export const NewArrivals: React.FC<NewArrivalsProps> = ({
 
                       <div className="mt-3">
                         <div className="text-xs font-semibold text-white">
-                          ${product.price.toFixed(2)}
+                          {formatPrice(product.price)}
                         </div>
                         <div className="flex items-center space-x-1 mt-1 text-amber-400 text-[9px]">
                           {[...Array(5)].map((_, i) => (

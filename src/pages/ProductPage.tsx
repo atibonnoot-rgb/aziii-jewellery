@@ -18,6 +18,7 @@ import { getProductById } from '../lib/productsApi';
 import { useCart } from '../context/CartContext';
 import { Header } from '../components/Header';
 import { Footer } from '../components/Footer';
+import { formatPrice } from '../lib/currency';
 import { CartDrawer } from '../components/CartDrawer';
 import { WishlistDrawer } from '../components/WishlistDrawer';
 import type { Product } from '../types';
@@ -187,7 +188,7 @@ export default function ProductPage() {
               <div className="mt-5 grid grid-cols-3 gap-3">
                 {[
                   { icon: ShieldCheck, label: 'Authentic', sub: 'Certified Genuine' },
-                  { icon: Truck, label: 'Free Delivery', sub: 'Orders over $100' },
+                  { icon: Truck, label: 'Free Delivery', sub: 'Orders over ₹1,000' },
                   { icon: RefreshCw, label: 'Easy Returns', sub: '30-Day Policy' },
                 ].map(({ icon: Icon, label, sub }) => (
                   <div
@@ -231,10 +232,10 @@ export default function ProductPage() {
 
               {/* Price */}
               <div className="flex items-baseline gap-3 mb-6 pb-6 border-b border-neutral-800">
-                <span className="text-3xl font-bold text-white">${product.price.toFixed(2)}</span>
+                <span className="text-3xl font-bold text-white">{formatPrice(product.price)}</span>
                 {product.originalPrice && (
                   <span className="text-neutral-500 line-through text-lg">
-                    ${product.originalPrice.toFixed(2)}
+                    {formatPrice(product.originalPrice)}
                   </span>
                 )}
                 {discount && discount > 0 && (
@@ -290,7 +291,7 @@ export default function ProductPage() {
                   }`}
                 >
                   <ShoppingBag className="w-4 h-4" />
-                  {addedFlash ? '✓ Added to Cart!' : `Add to Cart · $${(product.price * quantity).toFixed(2)}`}
+                  {addedFlash ? '✓ Added to Cart!' : `Add to Cart · ${formatPrice(product.price * quantity)}`}
                 </button>
 
                 {/* Wishlist */}

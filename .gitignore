@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+scripts/
+pending_products/
+remaining_products/

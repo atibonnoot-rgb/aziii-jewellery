@@ -13,6 +13,7 @@ import {
   Image,
 } from 'lucide-react';
 import { useProducts } from '../../hooks/useProducts';
+import { formatPrice } from '../../lib/currency';
 import { useAuth } from '../../hooks/useAuth';
 import { createProduct, updateProduct, deleteProduct } from '../../lib/productsApi';
 import ProductFormModal, { type ProductFormData } from './ProductFormModal';
@@ -427,11 +428,11 @@ export default function AdminPanel() {
                               {/* Price */}
                               <td className="px-4 py-3">
                                 <span className="text-white font-semibold">
-                                  ${product.price.toFixed(2)}
+                                  {formatPrice(product.price)}
                                 </span>
                                 {product.originalPrice && (
                                   <span className="text-neutral-600 line-through ml-1.5 text-[10px]">
-                                    ${product.originalPrice.toFixed(2)}
+                                    {formatPrice(product.originalPrice)}
                                   </span>
                                 )}
                               </td>
