@@ -5,7 +5,7 @@ export interface Product {
   category: 'WOMEN' | 'MEN' | 'UNISEX';
   price: number;
   originalPrice?: number;
-  badge?: 'NEW' | '-30%' | '-20%' | 'HOT';
+  badge?: string;
   rating: number;
   image: string;
   type: 'bracelet' | 'ring' | 'earrings' | 'pendant';

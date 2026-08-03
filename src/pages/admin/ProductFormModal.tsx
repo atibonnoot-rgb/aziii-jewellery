@@ -421,14 +421,38 @@ export default function ProductFormModal({
           {/* Badge / Section */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className={labelCls}>Badge</label>
-              <select id="pf-badge" value={form.badge} onChange={set('badge')} className={`${inputCls} cursor-pointer`}>
+              <label className={labelCls}>Badge (Select or Type Custom)</label>
+              <select
+                id="pf-badge-preset"
+                value={['', 'NEW', 'HOT', '-10%', '-15%', '-20%', '-25%', '-30%', '-40%', '-50%'].includes(form.badge) ? form.badge : 'custom'}
+                onChange={(e) => {
+                  if (e.target.value !== 'custom') {
+                    setForm(f => ({ ...f, badge: e.target.value }));
+                  }
+                }}
+                className={`${inputCls} cursor-pointer mb-2`}
+              >
                 <option value="">None</option>
                 <option value="NEW">NEW</option>
                 <option value="HOT">HOT</option>
+                <option value="-10%">-10%</option>
+                <option value="-15%">-15%</option>
                 <option value="-20%">-20%</option>
+                <option value="-25%">-25%</option>
                 <option value="-30%">-30%</option>
+                <option value="-40%">-40%</option>
+                <option value="-50%">-50%</option>
+                <option value="custom">✏️ Type Custom Badge Below…</option>
               </select>
+
+              <input
+                id="pf-badge-custom"
+                type="text"
+                value={form.badge}
+                onChange={set('badge')}
+                placeholder="Type custom badge (e.g. -15%, SALE, 25% OFF)..."
+                className={inputCls}
+              />
             </div>
             <div>
               <label className={labelCls}>Section</label>
