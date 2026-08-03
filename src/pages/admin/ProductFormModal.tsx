@@ -201,7 +201,19 @@ export default function ProductFormModal({
           {error && (
             <div className="flex items-start gap-2 bg-red-500/10 border border-red-500/30 px-3 py-2.5">
               <AlertCircle className="w-4 h-4 text-red-400 mt-0.5 flex-shrink-0" />
-              <p className="text-red-400 text-xs">{error}</p>
+              <div className="text-xs text-red-400">
+                {error.includes('products_badge_check') ? (
+                  <div>
+                    <p className="font-bold text-red-300 mb-1">Database Constraint Notice:</p>
+                    <p className="mb-2">Your Supabase database currently restricts badges to default values. To allow custom badges (like -15%, SALE, etc.), run this 1-line query in your <a href="https://supabase.com/dashboard/project/bwewsoffebmioficrbhr/sql/new" target="_blank" rel="noreferrer" className="underline text-amber-400 hover:text-amber-300">Supabase SQL Editor</a>:</p>
+                    <code className="block bg-neutral-900 text-amber-300 px-2 py-1 select-all font-mono text-[11px] border border-neutral-700">
+                      ALTER TABLE products DROP CONSTRAINT IF EXISTS products_badge_check;
+                    </code>
+                  </div>
+                ) : (
+                  <p>{error}</p>
+                )}
+              </div>
             </div>
           )}
 
