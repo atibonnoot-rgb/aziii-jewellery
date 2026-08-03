@@ -52,7 +52,7 @@ export default function StoreFront() {
   };
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex flex-col font-['Jost',sans-serif] selection:bg-amber-400 selection:text-black">
+    <div className="min-h-screen bg-[#121212] text-white flex flex-col font-['Jost',sans-serif] selection:bg-amber-400 selection:text-black overflow-x-hidden w-full max-w-full">
       <Header
         cartCount={cart.reduce((acc, item) => acc + item.quantity, 0)}
         wishlistCount={wishlist.length}

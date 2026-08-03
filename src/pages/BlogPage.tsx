@@ -93,7 +93,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#121212] text-white flex flex-col font-['Jost',sans-serif]">
+    <div className="min-h-screen bg-[#121212] text-white flex flex-col font-['Jost',sans-serif] overflow-x-hidden w-full max-w-full">
       <Header
         cartCount={cartCount}
         wishlistCount={wishlist.length}

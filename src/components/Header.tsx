@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="w-full bg-[#121212] text-white border-b border-neutral-800 relative z-40 font-['Jost',sans-serif]">
+    <header className="w-full max-w-full overflow-x-hidden bg-[#121212] text-white border-b border-neutral-800 relative z-40 font-['Jost',sans-serif]">
       {/* 1. Top Bar */}
       <div className="border-b border-neutral-800 text-[11px] text-neutral-300">
         <div className="max-w-7xl mx-auto px-4 py-2 flex flex-wrap justify-between items-center gap-2">
